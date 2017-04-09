@@ -1,23 +1,21 @@
 import PropTypes from 'prop-types';
+import { mapObject } from './utils';
 
-const getDocs = docs => {
-	const type = docs.type();
+const mapToReactPT = mapObject(prop => prop.type().getReactPT());
+const mapToDocs = mapObject(prop => prop.type().getDocs(prop));
+
+const getDocs = (docs) => {
+	const { displayName, required, shape } = docs.type();
 	return {
-		type: type.displayName,
-		required: type.required,
+		type: displayName,
+		required,
 		description: docs.description,
-		shape: Object.keys(type.shape).reduce((output, key) => {
-			output[key] = type.shape[key].type().getDocs(type.shape[key]);
-			return output;
-		}, {})
-	}
+		shape: mapToDocs(shape)
+	};
 }
 
 const makeGetReactPT = (required) => (theShape) => {
-	const reactPT = PropTypes.shape(Object.keys(theShape).reduce((outputShape, key) => {
-		outputShape[key] = theShape[key].type().getReactPT();
-		return outputShape;
-	}, {}));
+	const reactPT = PropTypes.shape(mapToReactPT(theShape));
 
 	return () => {
 		if (required) return reactPT.isRequired;
@@ -25,22 +23,10 @@ const makeGetReactPT = (required) => (theShape) => {
 	}
 };
 
-export function shape(theShape) {
-	return () => ({
-		displayName: 'Shape',
-		getReactPT: makeGetReactPT(false)(theShape),
-		required: false,
-		getDocs,
-		shape: theShape
-	});
-}
-
-shape.isRequired = function (theShape) {
-	return () => ({
-		displayName: 'Shape',
-		getReactPT: makeGetReactPT(true)(theShape),
-		required: true,
-		getDocs,
-		shape: theShape
-	});
-}
+export const makeShapeProptype = (required, theShape) => () => ({
+	displayName: 'Shape',
+	getReactPT: makeGetReactPT(required)(theShape),
+	required,
+	getDocs,
+	shape: theShape
+});
