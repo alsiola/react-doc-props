@@ -1,19 +1,18 @@
 import PropTypes from 'prop-types';
-import { mapObject } from './utils';
+import { mapToDocs, mapToReactPT } from './utils';
 
-const mapToReactPT = mapObject(prop => prop.type().getReactPT());
-const mapToDocs = mapObject(prop => prop.type().getDocs(prop));
-
-const getDocs = (docs) => {
-	const { displayName, required, shape } = docs.type();
+// takes a shape docs-prop and converts it to a documentation object
+const getDocs = (prop) => {
+	const { displayName, required, shape } = prop.type();
 	return {
 		type: displayName,
 		required,
-		description: docs.description,
+		description: prop.description,
 		shape: mapToDocs(shape)
 	};
 }
 
+// takes a doc-props shape object and returns the react proptype for that shape
 const makeGetReactPT = (required) => (theShape) => {
 	const reactPT = PropTypes.shape(mapToReactPT(theShape));
 
@@ -23,6 +22,7 @@ const makeGetReactPT = (required) => (theShape) => {
 	}
 };
 
+// makes a doc-props shape proptype
 export const makeShapeProptype = (required, theShape) => () => ({
 	displayName: 'Shape',
 	getReactPT: makeGetReactPT(required)(theShape),
