@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { mapToDocs, mapToReactPT } from './utils';
+import { mapToDocs, mapToReactPT, mapToOneOfTypeDescription } from './utils';
 
 // takes a shape docs-prop and converts it to a documentation object
 const getDocs = (prop) => {
@@ -28,5 +28,9 @@ export const makeShapeProptype = (required, theShape) => () => ({
 	getReactPT: makeGetReactPT(required)(theShape),
 	required,
 	getDocs,
-	shape: theShape
+	shape: theShape,
+	getOneOfTypeDescription: () => ({
+		type: 'Shape',
+		shape: mapToOneOfTypeDescription(theShape)
+	})
 });

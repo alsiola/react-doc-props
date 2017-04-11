@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import { makeSimplePropType } from './makeSimplePropType';
 import { makeShapeProptype } from './shape';
-
+import { makeInstanceOfProptype } from './instanceOf';
+import { makeOneOfProptype } from './oneOf';
+import { makeOneOfTypeProptype } from './oneOfType';
 
 
 export function string() {
@@ -91,4 +93,31 @@ export function shape(theShape) {
 
 shape.isRequired = function (theShape) {
 	return makeShapeProptype(true, theShape);
+}
+
+
+export function instanceOf(theType, typeName) {
+	return makeInstanceOfProptype(false, theType, typeName);
+}
+
+instanceOf.isRequired = function(theType, typeName) {
+	return makeInstanceOfProptype(true, theType, typeName);
+}
+
+
+export function oneOf(theEnum) {
+	return makeOneOfProptype(false, theEnum);
+}
+
+oneOf.isRequired = function(theEnum) {
+	return makeOneOfProptype(true, theEnum);
+}
+
+
+export function oneOfType(theTypes) {
+	return makeOneOfTypeProptype(false, theTypes);
+}
+
+oneOfType.isRequired = function (theTypes) {
+	return makeOneOfTypeProptype(true, theTypes);
 }

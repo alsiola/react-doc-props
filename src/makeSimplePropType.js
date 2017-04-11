@@ -13,5 +13,8 @@ export const makeSimplePropType = (displayName, reactPT, required = false) => ({
 	displayName,
 	required,
 	getReactPT: () => reactPT,
-	getDocs
+	getDocs,
+	getOneOfTypeDescription: () => ({
+		type: displayName
+	})
 });

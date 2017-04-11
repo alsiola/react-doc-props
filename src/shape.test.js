@@ -103,4 +103,58 @@ describe('shape', () => {
 
 		expect(docs).toEqual(expectedDocs);
 	});
+
+	test('produces correct documentation object with deep shape', () => {
+		const deepShape = {
+			astring: {
+				type: string,
+				description: 'A string'
+			},
+			adeepshape: {
+				type: shape({
+					adeepstring: {
+						type: string,
+						description: 'A deep string'
+					}
+				}),
+				description: 'A deep shape'
+			}
+		};
+		
+		const { getDocs } = shape(deepShape)();
+
+		const prop = {
+			type: shape.isRequired(deepShape),
+			description: 'A shape'
+		};
+
+		const docs = getDocs(prop);
+
+		const expectedDocs = {
+			type: 'Shape',
+			required: true,
+			description: 'A shape',
+			shape: {
+				astring: {
+					type: 'String',
+					required: false,
+					description: 'A string'
+				},
+				adeepshape: {
+					type: 'Shape',
+					required: false,
+					description: 'A deep shape',
+					shape: {
+						adeepstring: {
+							type: 'String',
+							required: false,
+							description: 'A deep string'
+						}
+					}
+				}
+			}
+		};
+
+		expect(docs).toEqual(expectedDocs);
+	})
 });
