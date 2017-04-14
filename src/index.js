@@ -4,6 +4,7 @@ import { makeShapeProptype } from './shape';
 import { makeInstanceOfProptype } from './instanceOf';
 import { makeOneOfProptype } from './oneOf';
 import { makeOneOfTypeProptype } from './oneOfType';
+import { makeArrayOfProptype } from './arrayOf';
 
 
 export function string() {
@@ -120,4 +121,13 @@ export function oneOfType(theTypes) {
 
 oneOfType.isRequired = function (theTypes) {
 	return makeOneOfTypeProptype(true, theTypes);
+}
+
+
+export function arrayOf(theType) {
+	return makeArrayOfProptype(false, theType);
+}
+
+arrayOf.isRequired = function(theType) {
+	return makeArrayOfProptype(true, theType);
 }

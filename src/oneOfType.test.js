@@ -1,5 +1,6 @@
 import { oneOfType, string, number, shape } from './index';
 import ReactPropTypes from 'prop-types';
+import { ReactPropTypesSecret } from './utils';
 
 const dummyProps = {
 	astring: 'hello',
@@ -29,9 +30,9 @@ describe('oneOfType', () => {
 			ReactPropTypes.string,
 			ReactPropTypes.number
 		]);
-		expect(reactPT(dummyProps, 'astring', 'dummy')).toEqual(realReactPT(dummyProps, 'astring', 'dummy'));
-		expect(reactPT(dummyProps, 'aboolean', 'dummy')).toEqual(realReactPT(dummyProps, 'aboolean', 'dummy'));
-		expect(reactPT(dummyProps, 'anumber', 'dummy')).toEqual(realReactPT(dummyProps, 'anumber', 'dummy'));
+		expect(reactPT(dummyProps, 'astring', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(realReactPT(dummyProps, 'astring', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'aboolean', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(realReactPT(dummyProps, 'aboolean', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'anumber', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(realReactPT(dummyProps, 'anumber', 'dummy', 'test', null, ReactPropTypesSecret));
 	});
 
 	test('returns correct proptype when required', () => {
@@ -41,10 +42,10 @@ describe('oneOfType', () => {
 			ReactPropTypes.string,
 			ReactPropTypes.number
 		]).isRequired;
-		expect(reactPT(dummyProps, 'astring', 'dummy')).toEqual(realReactPT(dummyProps, 'astring', 'dummy'));
-		expect(reactPT(dummyProps, 'aboolean', 'dummy')).toEqual(realReactPT(dummyProps, 'aboolean', 'dummy'));
-		expect(reactPT(dummyProps, 'anumber', 'dummy')).toEqual(realReactPT(dummyProps, 'anumber', 'dummy'));
-		expect(reactPT(dummyProps, 'undef', 'dummy')).toEqual(realReactPT(dummyProps, 'undef', 'dummy'));
+		expect(reactPT(dummyProps, 'astring', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(realReactPT(dummyProps, 'astring', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'aboolean', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(realReactPT(dummyProps, 'aboolean', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'anumber', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(realReactPT(dummyProps, 'anumber', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'undef', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(realReactPT(dummyProps, 'undef', 'dummy', 'test', null, ReactPropTypesSecret));
 	});
 
 	test('produces correct documentation object when not required', () => {

@@ -1,5 +1,6 @@
 import { instanceOf } from './index';
 import ReactPropTypes from 'prop-types';
+import { ReactPropTypesSecret } from './utils';
 
 class TestType { }
 
@@ -32,18 +33,18 @@ describe('instanceOf', () => {
 	test('returns correct proptype when not required', () => {
 		const { getReactPT } = instanceOf(TestType)();
 		const reactPT = getReactPT();
-		expect(reactPT(dummyProps, 'adate', 'dummy')).toEqual(ReactPropTypes.instanceOf(TestType)(dummyProps, 'adate', 'dummy'));
-		expect(reactPT(dummyProps, 'undef', 'dummy')).toEqual(ReactPropTypes.instanceOf(TestType)(dummyProps, 'undef', 'dummy'));
-		expect(reactPT(dummyProps, 'anumber', 'dummy')).toEqual(ReactPropTypes.instanceOf(TestType)(dummyProps, 'anumber', 'dummy'));
+		expect(reactPT(dummyProps, 'adate', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(ReactPropTypes.instanceOf(TestType)(dummyProps, 'adate', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'undef', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(ReactPropTypes.instanceOf(TestType)(dummyProps, 'undef', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'anumber', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(ReactPropTypes.instanceOf(TestType)(dummyProps, 'anumber', 'dummy', 'test', null, ReactPropTypesSecret));
 	});
 
 	test('returns correct proptype when required', () => {
 		const { getReactPT } = instanceOf.isRequired(TestType)();
 		const reactPT = getReactPT();
 
-		expect(reactPT(dummyProps, 'adate', 'dummy')).toEqual(ReactPropTypes.instanceOf(TestType).isRequired(dummyProps, 'adate', 'dummy'));
-		expect(reactPT(dummyProps, 'undef', 'dummy')).toEqual(ReactPropTypes.instanceOf(TestType).isRequired(dummyProps, 'undef', 'dummy'));
-		expect(reactPT(dummyProps, 'anumber', 'dummy')).toEqual(ReactPropTypes.instanceOf(TestType).isRequired(dummyProps, 'anumber', 'dummy'));
+		expect(reactPT(dummyProps, 'adate', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(ReactPropTypes.instanceOf(TestType).isRequired(dummyProps, 'adate', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'undef', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(ReactPropTypes.instanceOf(TestType).isRequired(dummyProps, 'undef', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'anumber', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(ReactPropTypes.instanceOf(TestType).isRequired(dummyProps, 'anumber', 'dummy', 'test', null, ReactPropTypesSecret));
 	});
 
 	test('produces correct documentation object when not required', () => {

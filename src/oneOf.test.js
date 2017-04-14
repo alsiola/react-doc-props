@@ -1,6 +1,6 @@
 import { oneOf } from './index';
 import ReactPropTypes from 'prop-types';
-
+import { ReactPropTypesSecret } from './utils'
 const dummyProps = {
 	aoneof: 2,
 	aoneother: 3,
@@ -27,9 +27,9 @@ describe('oneOf', () => {
 		const reactPT = getReactPT();
 		const realReactPT = ReactPropTypes.oneOf([2, 3]);
 
-		expect(reactPT(dummyProps, 'aoneof', 'dummy')).toEqual(realReactPT(dummyProps, 'aoneof', 'dummy'));
-		expect(reactPT(dummyProps, 'ooneother', 'dummy')).toEqual(realReactPT(dummyProps, 'ooneother', 'dummy'));
-		expect(reactPT(dummyProps, 'anotone', 'dummy')).toEqual(realReactPT(dummyProps, 'anotone', 'dummy'));
+		expect(reactPT(dummyProps, 'aoneof', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(realReactPT(dummyProps, 'aoneof', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'ooneother', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(realReactPT(dummyProps, 'ooneother', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'anotone', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(realReactPT(dummyProps, 'anotone', 'dummy', 'test', null, ReactPropTypesSecret));
 	});
 
 	test('returns correct proptype when required', () => {
@@ -37,9 +37,9 @@ describe('oneOf', () => {
 		const reactPT = getReactPT();
 		const realReactPT = ReactPropTypes.oneOf([2, 3]).isRequired;
 
-		expect(reactPT(dummyProps, 'aoneof', 'dummy')).toEqual(realReactPT(dummyProps, 'aoneof', 'dummy'));
-		expect(reactPT(dummyProps, 'ooneother', 'dummy')).toEqual(realReactPT(dummyProps, 'ooneother', 'dummy'));
-		expect(reactPT(dummyProps, 'anotone', 'dummy')).toEqual(realReactPT(dummyProps, 'anotone', 'dummy'));
+		expect(reactPT(dummyProps, 'aoneof', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(realReactPT(dummyProps, 'aoneof', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'ooneother', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(realReactPT(dummyProps, 'ooneother', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'anotone', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(realReactPT(dummyProps, 'anotone', 'dummy', 'test', null, ReactPropTypesSecret));
 	});
 
 	test('produces correct documentation object when not required', () => {

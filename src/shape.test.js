@@ -1,5 +1,6 @@
 import { shape, string } from './index';
 import ReactPropTypes from 'prop-types';
+import { ReactPropTypesSecret } from './utils';
 
 const dummyProps = {
 	ashape: {
@@ -38,18 +39,18 @@ describe('shape', () => {
 	test('returns correct proptype when not required', () => {
 		const { getReactPT } = shape(testShape)();
 		const reactPT = getReactPT();
-		expect(reactPT(dummyProps, 'ashape', 'dummy')).toEqual(ReactPropTypes.shape(reactTestShape)(dummyProps, 'ashape', 'dummy'));
-		expect(reactPT(dummyProps, 'undef', 'dummy')).toEqual(ReactPropTypes.shape(reactTestShape)(dummyProps, 'undef', 'dummy'));
-		expect(reactPT(dummyProps, 'anumber', 'dummy')).toEqual(ReactPropTypes.shape(reactTestShape)(dummyProps, 'anumber', 'dummy'));
+		expect(reactPT(dummyProps, 'ashape', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(ReactPropTypes.shape(reactTestShape)(dummyProps, 'ashape', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'undef', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(ReactPropTypes.shape(reactTestShape)(dummyProps, 'undef', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'anumber', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(ReactPropTypes.shape(reactTestShape)(dummyProps, 'anumber', 'dummy', 'test', null, ReactPropTypesSecret));
 	});
 
 	test('returns correct proptype when required', () => {
 		const { getReactPT } = shape.isRequired(testShape)();
 		const reactPT = getReactPT();
 
-		expect(reactPT(dummyProps, 'astring', 'dummy')).toEqual(ReactPropTypes.shape(reactTestShape).isRequired(dummyProps, 'astring', 'dummy'));
-		expect(reactPT(dummyProps, 'undef', 'dummy')).toEqual(ReactPropTypes.shape(reactTestShape).isRequired(dummyProps, 'undef', 'dummy'));
-		expect(reactPT(dummyProps, 'anumber', 'dummy')).toEqual(ReactPropTypes.shape(reactTestShape).isRequired(dummyProps, 'anumber', 'dummy'));
+		expect(reactPT(dummyProps, 'astring', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(ReactPropTypes.shape(reactTestShape).isRequired(dummyProps, 'astring', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'undef', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(ReactPropTypes.shape(reactTestShape).isRequired(dummyProps, 'undef', 'dummy', 'test', null, ReactPropTypesSecret));
+		expect(reactPT(dummyProps, 'anumber', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(ReactPropTypes.shape(reactTestShape).isRequired(dummyProps, 'anumber', 'dummy', 'test', null, ReactPropTypesSecret));
 	});
 
 	test('produces correct documentation object when not required', () => {

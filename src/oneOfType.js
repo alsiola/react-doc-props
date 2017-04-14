@@ -29,7 +29,7 @@ const typesToName = (theTypes) => {
 };
 
 
-// makes a doc-props shape proptype
+// makes a doc-props oneOfType proptype
 export const makeOneOfTypeProptype = (required, theTypes) => () => ({
 	displayName: `One of type [${typesToName(theTypes)}]`,
 	getReactPT: makeGetReactPT(required)(theTypes),
