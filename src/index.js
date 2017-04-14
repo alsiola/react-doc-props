@@ -5,6 +5,7 @@ import { makeInstanceOfProptype } from './instanceOf';
 import { makeOneOfProptype } from './oneOf';
 import { makeOneOfTypeProptype } from './oneOfType';
 import { makeArrayOfProptype } from './arrayOf';
+import { makeObjectOfProptype } from './objectOf';
 
 
 export function string() {
@@ -88,6 +89,14 @@ node.isRequired = function() {
 }
 
 
+export function element() {
+	return makeSimplePropType('Element', PropTypes.element);
+}
+
+element.isRequired = function() {
+	return makeSimplePropType('Element', PropTypes.element, true);
+}
+
 export function shape(theShape) {
 	return makeShapeProptype(false, theShape);
 }
@@ -130,4 +139,13 @@ export function arrayOf(theType) {
 
 arrayOf.isRequired = function(theType) {
 	return makeArrayOfProptype(true, theType);
+}
+
+
+export function objectOf(theType) {
+	return makeObjectOfProptype(false, theType);
+}
+
+objectOf.isRequired = function(theType) {
+	return makeObjectOfProptype(true, theType);
 }
