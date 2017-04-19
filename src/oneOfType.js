@@ -7,7 +7,8 @@ const getDocs = (theTypes) => (prop) => {
 	return {
 		type: displayName,
 		required,
-		description: prop.description,
+        description: prop.description,
+        default: prop.default,
 		types: theTypes.map(type => type().getOneOfTypeDescription())
 	};
 }

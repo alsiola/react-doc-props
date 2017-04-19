@@ -8,6 +8,8 @@ import { makeArrayOfProptype } from './arrayOf';
 import { makeObjectOfProptype } from './objectOf';
 
 export { docsToProps } from './docsToProps';
+export { docsToDefaults } from './docsToDefaults';
+export { setComponentProps } from './setComponentProps';
 
 export function string() {
 	return makeSimplePropType('String', PropTypes.string);

@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "react": "^15.5.4",
-    "react-doc-props": "^0.1.4",
+    "react-doc-props": "^0.1.5",
     "react-dom": "^15.5.4"
   },
   "devDependencies": {

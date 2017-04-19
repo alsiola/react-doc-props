@@ -4,7 +4,8 @@ const getDocs = (prop) => {
 	return {
 		type: displayName,
 		required,
-		description: prop.description
+		description: prop.description,
+        default: prop.default
 	}
 }
 

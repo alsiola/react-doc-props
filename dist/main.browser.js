@@ -15,7 +15,8 @@ var getDocs = function getDocs(prop) {
 	return {
 		type: displayName,
 		required: required,
-		description: prop.description
+		description: prop.description,
+		default: prop.default
 	};
 };
 
@@ -49,6 +50,9 @@ var mapObject = function mapObject(mapper) {
 var mapToReactPT = mapObject(function (prop) {
 	return prop.type().getReactPT();
 });
+var mapToDefaults = mapObject(function (prop) {
+	return prop.default;
+});
 var mapToDocs = mapObject(function (prop) {
 	return prop.type().getDocs(prop);
 });
@@ -75,6 +79,7 @@ var getDocs$1 = function getDocs(prop) {
 		type: displayName,
 		required: required,
 		description: prop.description,
+		default: prop.default,
 		shape: mapToDocs(shape)
 	};
 };
@@ -120,7 +125,8 @@ var getDocs$2 = function getDocs(prop) {
 	return {
 		type: displayName,
 		required: required,
-		description: prop.description
+		description: prop.description,
+		default: prop.default
 	};
 };
 
@@ -163,7 +169,8 @@ var getDocs$3 = function getDocs(prop) {
 	return {
 		type: displayName,
 		required: required,
-		description: prop.description
+		description: prop.description,
+		default: prop.default
 	};
 };
 
@@ -208,6 +215,7 @@ var getDocs$4 = function getDocs(theTypes) {
 			type: displayName,
 			required: required,
 			description: prop.description,
+			default: prop.default,
 			types: theTypes.map(function (type) {
 				return type().getOneOfTypeDescription();
 			})
@@ -319,6 +327,7 @@ var getDocs$5 = function getDocs(theType) {
 			type: displayName,
 			required: required,
 			description: prop.description,
+			default: prop.default,
 			arrayOf: getArrayOfDoc(theType)
 		};
 	};
@@ -391,6 +400,7 @@ var getDocs$6 = function getDocs(theType) {
 			type: displayName,
 			required: required,
 			description: prop.description,
+			default: prop.default,
 			objectOf: getObjectOfDoc(theType)
 		};
 	};
@@ -431,6 +441,15 @@ var makeObjectOfProptype = function makeObjectOfProptype(required, theType) {
 
 var docsToProps = function docsToProps(docs) {
 	return mapToReactPT(docs.props);
+};
+
+var docsToDefaults = function docsToDefaults(docs) {
+    return mapToDefaults(docs.props);
+};
+
+var setComponentProps = function setComponentProps(documentation, component) {
+    component.propTypes = docsToProps(documentation);
+    component.defaultProps = docsToDefaults(documentation);
 };
 
 function string() {
@@ -578,4 +597,6 @@ exports.oneOfType = oneOfType;
 exports.arrayOf = arrayOf;
 exports.objectOf = objectOf;
 exports.docsToProps = docsToProps;
+exports.docsToDefaults = docsToDefaults;
+exports.setComponentProps = setComponentProps;
 //# sourceMappingURL=main.browser.js.map

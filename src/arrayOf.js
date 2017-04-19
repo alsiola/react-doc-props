@@ -21,7 +21,8 @@ const getDocs = (theType) => (prop) => {
 	return {
 		type: displayName,
 		required,
-		description: prop.description,
+        description: prop.description,
+        default: prop.default,
 		arrayOf: getArrayOfDoc(theType)
 	};
 }
