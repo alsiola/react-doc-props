@@ -7,6 +7,7 @@ import { makeOneOfTypeProptype } from './oneOfType';
 import { makeArrayOfProptype } from './arrayOf';
 import { makeObjectOfProptype } from './objectOf';
 
+export { docsToProps } from './docsToProps';
 
 export function string() {
 	return makeSimplePropType('String', PropTypes.string);
