@@ -11,9 +11,9 @@ npm install --save react-doc-props
 
 Usage
 =====
-The basic react-doc-props documentation object looks like this:
+The basic react-doc-props documentation object looks like this.  
 ````
-const documentation = {
+export const documentation = {
     name: 'ComponentName',
     description: 'A description of the component',
     props: {
@@ -28,6 +28,22 @@ import { setComponentProps } from 'react-doc-props';
 
 setComponentProps(documentation, Component);
 ````
+
+Having this documentation object in the component source file is helpful - it can be defined at the top of the file for quick reference, but the documentation can also be displayed in a pretty(ish) format using the included `DocDisplay` component, for example, within a react-storybook story, to create a page that shows examples of your component, as well as documenting its props.
+
+````
+import React from 'react';
+import { DocDisplay } from 'react-doc-props';
+import Component, { documentation } from 'path/to/component';
+
+const ComponentStory = () => (
+    <DocDisplay documentation={documentation} />
+    // Some examples of your component
+);
+
+export default ComponentStory;
+````
+
 
 Simple Prop Types
 -----
@@ -169,3 +185,63 @@ const documentation = {
 };
 ````
 Again, substitute with `arrayOf.isRequired` or `objectOf.isRequired` for required props.
+
+OneOf
+------
+OneOf prop types can be defined using the `oneOf` and `oneOf.isRequired` functions, with a single argument - an array of the possible values.
+````
+import { oneOf } from 'react-prop-types';
+
+const documentation = {
+    name: 'ComponentName',
+    description: 'A description of the component',
+    props: {
+        openDirection: {
+            type: oneOf( ['up', 'down', 'left', 'right'] ),
+            description: 'An array of user names.'
+        }
+    }
+};
+````
+
+OneOfType
+-----
+OneOfType prop types can be defined with the `oneOfType` and `oneOfType.isRequired` functions.  The single argument is an array of possible types.
+````
+import { oneOfType, string, number } from 'react-prop-types';
+
+const documentation = {
+    name: 'ComponentName',
+    description: 'A description of the component',
+    props: {
+        time: {
+            type: oneOfType([ string, number ]),
+            description: 'The current time as a string or timestamp.'
+        }
+    }
+};
+````
+
+Custom Validator Functions
+-----
+The use of custom validator functions is supported with the `custom` function, passing the validator function as an argument:
+````
+import { custom } from 'react-prop-types';
+
+const singleCharStringValidator = (props, propName, component) => {
+    if (!props[propName] ||typeof props[propName] !== 'string' || props[propName].length !== 1) {
+        return new Error(`Invalid prop ${propName} supplied to ${component}.`);
+    }
+}
+
+const documentation = {
+    name: 'ComponentName',
+    description: 'A description of the component',
+    props: {
+        initial: {
+            type: custom(singleCharStringValidator)
+            description: 'A single letter initial.'
+        }
+    }
+};
+````
