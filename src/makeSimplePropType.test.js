@@ -1,4 +1,4 @@
-import { string, number, array, bool } from './index';
+import { string, number, array, bool, custom } from './index';
 import ReactPropTypes from 'prop-types';
 import { ReactPropTypesSecret } from './utils';
 
@@ -6,8 +6,9 @@ const dummyProps = {
 	astring: 'hello',
 	anumber: 3,
 	anarray: [],
-	aboolean: true
-}
+	aboolean: true,
+    a1lengthstring: 'a'
+};
 
 describe('string', () => {
 	test('returns correct displayName', () => {
@@ -67,6 +68,21 @@ describe('string', () => {
 		expect(reactPT(dummyProps, 'undef', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(ReactPropTypes.bool.isRequired(dummyProps, 'undef', 'dummy', 'test', null, ReactPropTypesSecret));
 		expect(reactPT(dummyProps, 'aboolean', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(ReactPropTypes.bool.isRequired(dummyProps, 'aboolean', 'dummy', 'test', null, ReactPropTypesSecret));
 	});
+
+    test('returns correct proptype for a custom', () => {
+        const validator = (props, propName, component) => {
+            if (!props[propName] || props[propName].length !== 1) {
+                return new Error(`Invalid prop ${propName} supplied to ${component}.`);
+            }
+        }
+        
+        const { getReactPT } = custom(validator);
+        const reactPT = getReactPT();
+
+        expect(reactPT(dummyProps, 'astring', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(validator(dummyProps, 'astring', 'dummy', 'test', null, ReactPropTypesSecret));
+        expect(reactPT(dummyProps, 'undef', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(validator(dummyProps, 'undef', 'dummy', 'test', null, ReactPropTypesSecret));
+        expect(reactPT(dummyProps, 'a1lengthstring', 'dummy', 'test', null, ReactPropTypesSecret)).toEqual(validator(dummyProps, 'a1lengthstring', 'dummy', 'test', null, ReactPropTypesSecret));
+    });
 
 	test('produces correct documentation object when not required', () => {
 		const { getDocs } = string();

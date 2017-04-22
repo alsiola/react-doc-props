@@ -7,6 +7,9 @@ import { makeOneOfTypeProptype } from './oneOfType';
 import { makeArrayOfProptype } from './arrayOf';
 import { makeObjectOfProptype } from './objectOf';
 
+import D from './components/DocDisplay';
+export const DocDisplay = D;
+
 export { docsToProps } from './docsToProps';
 export { docsToDefaults } from './docsToDefaults';
 export { setComponentProps } from './setComponentProps';
@@ -99,6 +102,12 @@ export function element() {
 element.isRequired = function() {
 	return makeSimplePropType('Element', PropTypes.element, true);
 }
+
+
+export function custom(validator) {
+    return makeSimplePropType('Custom', validator);
+}
+
 
 export function shape(theShape) {
 	return makeShapeProptype(false, theShape);

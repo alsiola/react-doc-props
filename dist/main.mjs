@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import React from 'react';
 
 // takes a docs-prop object and returns a documentation object
 var getDocs = function getDocs(prop) {
@@ -249,6 +250,32 @@ var makeOneOfTypeProptype = function makeOneOfTypeProptype(required, theTypes) {
 	};
 };
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
@@ -433,6 +460,203 @@ var makeObjectOfProptype = function makeObjectOfProptype(required, theType) {
 	};
 };
 
+var display = function display(value) {
+    if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object') {
+        return JSON.stringify(value, null, 2);
+    }
+    if (Array.isArray(value)) {
+        return '[ ' + value.map(function (v) {
+            return display(v);
+        }).join(', ') + ' ]';
+    }
+    return value;
+};
+
+var renderProp = function renderProp(prop, name) {
+    if (prop.type === 'Shape') {
+        return React.createElement(
+            'div',
+            null,
+            React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'i',
+                    null,
+                    prop.type,
+                    ' (',
+                    prop.required ? 'required' : 'optional',
+                    ')'
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                prop.description
+            ),
+            prop.default && React.createElement(
+                'p',
+                null,
+                'Default value: ',
+                display(prop.default)
+            ),
+            React.createElement(
+                'h3',
+                null,
+                'Shape of ',
+                name,
+                ':'
+            ),
+            React.createElement(
+                'div',
+                { style: {
+                        borderLeft: '2px solid #000',
+                        marginTop: '10px',
+                        paddingLeft: '40px'
+                    } },
+                Object.keys(prop.shape).map(function (key) {
+                    return React.createElement(
+                        'div',
+                        { key: key },
+                        React.createElement(
+                            'h4',
+                            null,
+                            key
+                        ),
+                        renderProp(prop.shape[key], key)
+                    );
+                })
+            )
+        );
+    }
+
+    if (prop.type.substr(0, 8) === 'Array of') {
+        return React.createElement(
+            'div',
+            null,
+            React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'i',
+                    null,
+                    prop.type,
+                    ' (',
+                    prop.required ? 'required' : 'optional',
+                    ')'
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                prop.description
+            ),
+            prop.default && React.createElement(
+                'p',
+                null,
+                'Default value: ',
+                display(prop.default)
+            ),
+            React.createElement(
+                'h3',
+                null,
+                'Array of type:'
+            ),
+            React.createElement(
+                'div',
+                { style: {
+                        borderLeft: '2px solid #000',
+                        marginTop: '10px',
+                        paddingLeft: '40px'
+                    } },
+                renderProp(prop.arrayOf)
+            )
+        );
+    }
+
+    return React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'p',
+            null,
+            React.createElement(
+                'i',
+                null,
+                prop.type,
+                ' (',
+                prop.required ? 'required' : 'optional',
+                ')'
+            )
+        ),
+        React.createElement(
+            'p',
+            null,
+            prop.description
+        ),
+        prop.default && React.createElement(
+            'p',
+            null,
+            'Default value: ',
+            display(prop.default)
+        )
+    );
+};
+
+var getPropsDocArray = function getPropsDocArray(documentation) {
+    return Object.keys(documentation.props).map(function (name) {
+        return {
+            name: name,
+            docs: documentation.props[name].type().getDocs(documentation.props[name])
+        };
+    });
+};
+
+var defaultRenderer = function defaultRenderer(name, description, propDocs) {
+    return React.createElement(
+        'div',
+        { style: {
+                padding: '40px',
+                textAlign: 'left'
+            } },
+        React.createElement(
+            'h1',
+            null,
+            name
+        ),
+        React.createElement(
+            'h2',
+            null,
+            description
+        ),
+        propDocs.map(function (prop) {
+            return React.createElement(
+                'div',
+                { key: prop.name },
+                React.createElement(
+                    'h2',
+                    null,
+                    prop.name
+                ),
+                React.createElement(
+                    'div',
+                    null,
+                    renderProp(prop.docs, prop.name)
+                )
+            );
+        })
+    );
+};
+
+var DocDisplay$1 = function DocDisplay(_ref) {
+    var documentation = _ref.documentation,
+        customRenderer = _ref.customRenderer;
+
+    var propDocs = getPropsDocArray(documentation);
+    var render = customRenderer || defaultRenderer;
+    return render(documentation.name, documentation.description, propDocs);
+};
+
 var docsToProps = function docsToProps(docs) {
 	return mapToReactPT(docs.props);
 };
@@ -445,6 +669,8 @@ var setComponentProps = function setComponentProps(documentation, component) {
     component.propTypes = docsToProps(documentation);
     component.defaultProps = docsToDefaults(documentation);
 };
+
+var DocDisplay = DocDisplay$1;
 
 function string() {
 	return makeSimplePropType('String', PropTypes.string);
@@ -526,6 +752,10 @@ element.isRequired = function () {
 	return makeSimplePropType('Element', PropTypes.element, true);
 };
 
+function custom(validator) {
+	return makeSimplePropType('Custom', validator);
+}
+
 function shape(theShape) {
 	return makeShapeProptype(false, theShape);
 }
@@ -574,5 +804,5 @@ objectOf.isRequired = function (theType) {
 	return makeObjectOfProptype(true, theType);
 };
 
-export { string, number, array, bool, func, object, symbol, any, node, element, shape, instanceOf, oneOf, oneOfType, arrayOf, objectOf, docsToProps, docsToDefaults, setComponentProps };
+export { DocDisplay, string, number, array, bool, func, object, symbol, any, node, element, custom, shape, instanceOf, oneOf, oneOfType, arrayOf, objectOf, docsToProps, docsToDefaults, setComponentProps };
 //# sourceMappingURL=main.mjs.map

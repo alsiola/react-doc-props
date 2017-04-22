@@ -8,7 +8,7 @@ const pkg = require('../package.json');
 const bundles = [
     {
         format: 'cjs', ext: '.js', plugins: [],
-        babelPresets: ['es2015-rollup', 'stage-1'], babelPlugins: [
+        babelPresets: ['es2015-rollup', 'stage-1', 'react'], babelPlugins: [
             'transform-es2015-destructuring',
             'transform-es2015-function-name',
             'transform-es2015-parameters',
@@ -16,7 +16,7 @@ const bundles = [
     },
     {
         format: 'es', ext: '.mjs', plugins: [],
-        babelPresets: ['es2015-rollup', 'stage-1'], babelPlugins: [
+        babelPresets: ['es2015-rollup', 'stage-1', 'react'], babelPlugins: [
             'transform-es2015-destructuring',
             'transform-es2015-function-name',
             'transform-es2015-parameters'
@@ -24,16 +24,16 @@ const bundles = [
     },
     {
         format: 'cjs', ext: '.browser.js', plugins: [],
-        babelPresets: ['es2015-rollup', 'stage-1'], babelPlugins: []
+        babelPresets: ['es2015-rollup', 'stage-1', 'react'], babelPlugins: []
     },
     {
         format: 'umd', ext: '.js', plugins: [],
-        babelPresets: ['es2015-rollup', 'stage-1'], babelPlugins: [],
+        babelPresets: ['es2015-rollup', 'stage-1', 'react'], babelPlugins: [],
         moduleName: 'my-library'
     },
     {
         format: 'umd', ext: '.min.js', plugins: [uglify()],
-        babelPresets: ['es2015-rollup', 'stage-1'], babelPlugins: [],
+        babelPresets: ['es2015-rollup', 'stage-1', 'react'], babelPlugins: [],
         moduleName: 'my-library', minify: true
     }
 ];

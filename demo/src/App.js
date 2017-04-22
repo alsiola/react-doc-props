@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import PropDemo, { documentation } from './PropDemo';
-import DocDisplay from './DocDisplay';
+import { DocDisplay } from 'react-doc-props';
 
 class App extends Component {
     render() {
