@@ -2,15 +2,14 @@
 
 react-doc-props is a package that allows you to write comprehensive in-file documentation of React components.  This documentation will then generate the correct propTypes and defaultProps for your component.  Additionally, a `DocDisplay` component is provided that will display the documentation in a human-friendly format, which can be integrated with, for example, React-Storybook.
 
-Installation
-=======
+## Installation
 Install with your package manager of choice:
+
 ````
 npm install --save react-doc-props
 ````
 
-Usage
-=====
+## Usage
 The basic react-doc-props documentation object looks like this.  
 ````
 export const documentation = {
@@ -51,8 +50,8 @@ export default ComponentStory;
 ````
 
 
-Simple Prop Types
------
+### Simple Prop Types
+
 The `documentation.props` object is constructed using the propTypes exported by react-prop-docs:
 ````
 import { string } from 'react-doc-props';
@@ -93,8 +92,7 @@ The simple propTypes are all used in the same way, and all of the React PropType
 import { string, number, boolean, object, func, array, symbol, element, node, any } from 'react-doc-props';
 ````
 
-Shape
-=====
+### Shape
 A shape propType is created by using the `shape` function from `react-doc-props`.  The shape required is passed as an argument - this argument should be an object with the same structure as the `documentation.props` object:
 ````
 import { shape, string, number } from 'react-doc-props';
@@ -149,8 +147,7 @@ const documentation = {
 };
 ````
 
-InstanceOf
---------
+### InstanceOf
 An instanceOf propType is created with the `instanceOf` function from `react-doc-props`.  It takes two arguments: the class the prop must be an instance of, and optionally a display name for that class.
 ````
 import { instanceOf } from 'react-doc-props';
@@ -169,8 +166,7 @@ const documentation = {
 
 If the prop is required, then use the `instanceOf.isRequired()` function.
 
-ArrayOf and ObjectOf
----------
+### ArrayOf and ObjectOf
 ArrayOf and ObjectOf work in the same way, using `arrayOf` and `objectOf` respectively:
 ````
 import { arrayOf, objectOf, string } from 'react-doc-props';
@@ -192,8 +188,7 @@ const documentation = {
 ````
 Again, substitute with `arrayOf.isRequired` or `objectOf.isRequired` for required props.
 
-OneOf
-------
+### OneOf
 OneOf prop types can be defined using the `oneOf` and `oneOf.isRequired` functions, with a single argument - an array of the possible values.
 ````
 import { oneOf } from 'react-prop-types';
@@ -210,8 +205,7 @@ const documentation = {
 };
 ````
 
-OneOfType
------
+### OneOfType
 OneOfType prop types can be defined with the `oneOfType` and `oneOfType.isRequired` functions.  The single argument is an array of possible types.
 ````
 import { oneOfType, string, number } from 'react-prop-types';
@@ -228,8 +222,7 @@ const documentation = {
 };
 ````
 
-Custom Validator Functions
------
+### Custom Validator Functions
 The use of custom validator functions is supported with the `custom` function, passing the validator function as an argument:
 ````
 import { custom } from 'react-prop-types';
