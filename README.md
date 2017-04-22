@@ -41,8 +41,10 @@ import { DocDisplay } from 'react-doc-props';
 import Component, { documentation } from 'path/to/component';
 
 const ComponentStory = () => (
-    <DocDisplay documentation={documentation} />
-    // Some examples of your component
+    <div>
+        <DocDisplay documentation={documentation} />
+        // Some examples of your component
+    </div>
 );
 
 export default ComponentStory;
