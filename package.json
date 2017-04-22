@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://alsiola@gitlab.com/alsiola/react-doc-props.git"
+    "url": "git+https://github.com/alsiola/react-doc-props.git"
   },
   "keywords": [
     "react",

@@ -17,7 +17,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build -r https://github.com/alsiola/react-doc-props.git"
   },
   "homepage": "http://alsiola.github.io/react-doc-props"
 }

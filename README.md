@@ -31,6 +31,10 @@ setComponentProps(documentation, Component);
 
 Having this documentation object in the component source file is helpful - it can be defined at the top of the file for quick reference, but the documentation can also be displayed in a pretty(ish) format using the included `DocDisplay` component, for example, within a react-storybook story, to create a page that shows examples of your component, as well as documenting its props.
 
+There is a demo of the DocDisplay component [here](https://alsiola.github.io/react-doc-props/), the source is in the `/demo` folder of this repository.
+
+If you wish to display the prop information in a different way, then you can use a custom renderer in `DocDisplay` - see the custom renderer section.
+
 ````
 import React from 'react';
 import { DocDisplay } from 'react-doc-props';

@@ -12,49 +12,45 @@ export const documentation = {
     name: 'PropDemo',
     description: 'A component with some demo props.',
     props: {
-        astring: {
+        username: {
             type: string,
-            description: 'Just a string',
-            default: 'A default value'
+            description: 'The users name',
+            default: 'Name not set'
         },
-        anumber: {
+        age: {
             type: number,
-            description: 'Just a number'
+            description: 'Users age'
         },
-        ashape: {
+        post: {
             type: shape({
-                aprop: {
+                content: {
                     type: string.isRequired,
-                    description: 'A string in a shape'
+                    description: 'The content of the post'
                 },
-                anotherprop: {
+                likes: {
                     type: number.isRequired,
-                    description: 'A number in a shape'
+                    description: 'How many people liked the post'
                 },
-                adeepshape: {
+                category: {
                     type: shape({
-                        deepstring: {
+                        name: {
                             type: string,
-                            description: 'A deep string'
+                            description: 'The name of the category'
                         },
-                        deepnumber: {
+                        id: {
                             type: number,
-                            description: 'A deep number'
+                            description: 'The id of the category'
                         }
                     }),
-                    description: 'A deep shape'
+                    description: 'The category of the blog post'
                 }
             }),
-            description: 'A shape with some required properties.',
-            default: {
-                aprop: 'stringy',
-                anotherprop: 3
-            }
+            description: 'A blog post'
         },
-        anArrayOf: {
+        likes: {
             type: arrayOf(string),
-            description: 'An array of strings',
-            default: ['a', 'b', 'c']
+            description: 'An array of user names of the users friends',
+            default: ['alex', 'bill', 'chris']
         }
     }
 };
