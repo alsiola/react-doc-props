@@ -6,7 +6,7 @@
   "jsnext:main": "dist/main.mjs",
   "browser": "dist/main.browser.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "test:watch": "npm run test -- --watch"
   },
   "repository": {
