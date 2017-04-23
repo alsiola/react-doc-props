@@ -5,7 +5,6 @@ import 'codemirror/lib/codemirror.css';
 
 import { documentation } from './PropDemo';
 import { DocDisplay } from 'react-doc-props';
-// import DocDisplay from './components/DocDisplay';
 
 export const documentationString = `
 import { string, number, shape, arrayOf, setComponentProps } from 'react-doc-props';
