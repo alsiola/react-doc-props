@@ -1,12 +1,88 @@
 import React, { Component } from 'react';
+import CodeMirror from 'react-codemirror';
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/lib/codemirror.css';
 
-import PropDemo, { documentation } from './PropDemo';
+import { documentation } from './PropDemo';
 import { DocDisplay } from 'react-doc-props';
+// import DocDisplay from './components/DocDisplay';
+
+export const documentationString = `
+import { string, number, shape, arrayOf, setComponentProps } from 'react-doc-props';
+
+export const documentation = {
+    name: 'PropDemo',
+    description: 'A component with some demo props.',
+    props: {
+        username: {
+            type: string,
+            description: 'The users name',
+            default: 'Name not set'
+        },
+        age: {
+            type: number,
+            description: 'Users age'
+        },
+        post: {
+            description: 'A blog post',
+            type: shape.isRequired({
+                content: {
+                    type: string.isRequired,
+                    description: 'The content of the post'
+                },
+                likes: {
+                    type: number.isRequired,
+                    description: 'How many people liked the post'
+                },
+                category: {
+                    type: shape({
+                        name: {
+                            type: string,
+                            description: 'The name of the category'
+                        },
+                        id: {
+                            type: number,
+                            description: 'The id of the category'
+                        }
+                    }),
+                    description: 'The category of the blog post'
+                }
+            })
+        },
+        friends: {
+            type: arrayOf({
+                description: 'A user',
+                type: shape({
+                    id: {
+                        type: number,
+                        description: 'The users id'
+                    },
+                    name: {
+                        type: string,
+                        description: 'The users name'
+                    }
+                })
+            }),
+            description: 'An array of the users friends',
+            default: []
+        }
+    }
+}
+
+setComponentProps(documentation, PropDemo);
+`;
 
 class App extends Component {
     render() {
         return (
             <div className="App">
+                <h1>react-doc-props Demo</h1>
+                <p>This documentation object...</p>
+                <CodeMirror value={(documentationString)} options={{
+                    mode: 'javascript',
+                    readOnly: 'true'
+                }} />
+                <p>...will generate this documentation.</p>
                 <DocDisplay documentation={documentation} />
             </div>
         );

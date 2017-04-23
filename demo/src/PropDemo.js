@@ -22,7 +22,7 @@ export const documentation = {
             description: 'Users age'
         },
         post: {
-            type: shape({
+            type: shape.isRequired({
                 content: {
                     type: string.isRequired,
                     description: 'The content of the post'
@@ -47,10 +47,22 @@ export const documentation = {
             }),
             description: 'A blog post'
         },
-        likes: {
-            type: arrayOf(string),
-            description: 'An array of user names of the users friends',
-            default: ['alex', 'bill', 'chris']
+        friends: {
+            type: arrayOf({
+                type: shape({
+                    id : {
+                        type: number,
+                        description: 'The users id'
+                    },
+                    name: {
+                        type: string,
+                        description: 'The users name'
+                    }
+                }),
+                description: 'A user'
+            }),
+            description: 'An array of the users friends',
+            default: []
         }
     }
 };
