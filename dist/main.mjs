@@ -33,34 +33,150 @@ var makeSimplePropType = function makeSimplePropType(displayName, reactPT) {
 	};
 };
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+var objectWithoutProperties = function (obj, keys) {
+  var target = {};
+
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+
+  return target;
+};
+
 var mapObject = function mapObject(mapper) {
-	return function (object) {
-		return Object.keys(object).reduce(function (output, key) {
-			output[key] = mapper(object[key]);
-			return output;
-		}, {});
-	};
+    return function (object) {
+        return Object.keys(object).reduce(function (output, key) {
+            output[key] = mapper(object[key]);
+            return output;
+        }, {});
+    };
+};
+
+var objectToArray = function objectToArray(keyProp, valProp) {
+    return function (object) {
+        return Object.keys(object).map(function (key) {
+            var _ref;
+
+            return _ref = {}, defineProperty(_ref, keyProp, key), defineProperty(_ref, valProp, object[key]), _ref;
+        });
+    };
 };
 
 var mapToReactPT = mapObject(function (prop) {
-	return prop.type().getReactPT();
+    return prop.type().getReactPT();
 });
 var mapToDefaults = mapObject(function (prop) {
-	return prop.default;
+    return prop.default;
 });
 var mapToDocs = mapObject(function (prop) {
-	return prop.type().getDocs(prop);
+    return prop.type().getDocs(prop);
 });
 
-var mapToOneOfTypeDescription = mapObject(function (prop) {
-	var _prop$type$getDocs = prop.type(prop).getDocs(prop),
-	    type = _prop$type$getDocs.type,
-	    description = _prop$type$getDocs.description;
+var objectToArrayNameDocs = objectToArray('name', 'docs');
 
-	return {
-		type: type,
-		description: description
-	};
+var propsToDocs = function propsToDocs(props) {
+    return objectToArrayNameDocs(mapToDocs(props));
+};
+
+var shapeToDocs = function shapeToDocs(shape) {
+    return objectToArrayNameDocs(shape);
+};
+
+var arrayOfToDocs = function arrayOfToDocs(arrayOf) {
+    return {
+        name: '',
+        docs: arrayOf
+    };
+};
+
+var display = function display(value) {
+    if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object') {
+        return JSON.stringify(value, null, 2);
+    }
+    if (Array.isArray(value)) {
+        return '[ ' + value.map(function (v) {
+            return display(v);
+        }).join(', ') + ' ]';
+    }
+    return value;
+};
+
+var mapToOneOfTypeDescription = mapObject(function (prop) {
+    var _prop$type$getDocs = prop.type(prop).getDocs(prop),
+        type = _prop$type$getDocs.type,
+        description = _prop$type$getDocs.description;
+
+    return {
+        type: type,
+        description: description
+    };
 });
 
 // takes a shape docs-prop and converts it to a documentation object
@@ -250,70 +366,6 @@ var makeOneOfTypeProptype = function makeOneOfTypeProptype(required, theTypes) {
 	};
 };
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-var objectWithoutProperties = function (obj, keys) {
-  var target = {};
-
-  for (var i in obj) {
-    if (keys.indexOf(i) >= 0) continue;
-    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-    target[i] = obj[i];
-  }
-
-  return target;
-};
-
 var getArrayOfDoc = function getArrayOfDoc(theType) {
 	if ('type' in theType) {
 		return theType.type().getDocs(theType);
@@ -460,165 +512,12 @@ var makeObjectOfProptype = function makeObjectOfProptype(required, theType) {
 	};
 };
 
-var display = function display(value) {
-    if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object') {
-        return JSON.stringify(value, null, 2);
-    }
-    if (Array.isArray(value)) {
-        return '[ ' + value.map(function (v) {
-            return display(v);
-        }).join(', ') + ' ]';
-    }
-    return value;
-};
-
-var renderProp = function renderProp(prop, name) {
-    if (prop.type === 'Shape') {
-        return React.createElement(
-            'div',
-            null,
-            React.createElement(
-                'p',
-                null,
-                React.createElement(
-                    'i',
-                    null,
-                    prop.type,
-                    ' (',
-                    prop.required ? 'required' : 'optional',
-                    ')'
-                )
-            ),
-            React.createElement(
-                'p',
-                null,
-                prop.description
-            ),
-            prop.default && React.createElement(
-                'p',
-                null,
-                'Default value: ',
-                display(prop.default)
-            ),
-            React.createElement(
-                'h3',
-                null,
-                'Shape of ',
-                name,
-                ':'
-            ),
-            React.createElement(
-                'div',
-                { style: {
-                        borderLeft: '2px solid #000',
-                        marginTop: '10px',
-                        paddingLeft: '40px'
-                    } },
-                Object.keys(prop.shape).map(function (key) {
-                    return React.createElement(
-                        'div',
-                        { key: key },
-                        React.createElement(
-                            'h4',
-                            null,
-                            key
-                        ),
-                        renderProp(prop.shape[key], key)
-                    );
-                })
-            )
-        );
-    }
-
-    if (prop.type.substr(0, 8) === 'Array of') {
-        return React.createElement(
-            'div',
-            null,
-            React.createElement(
-                'p',
-                null,
-                React.createElement(
-                    'i',
-                    null,
-                    prop.type,
-                    ' (',
-                    prop.required ? 'required' : 'optional',
-                    ')'
-                )
-            ),
-            React.createElement(
-                'p',
-                null,
-                prop.description
-            ),
-            prop.default && React.createElement(
-                'p',
-                null,
-                'Default value: ',
-                display(prop.default)
-            ),
-            React.createElement(
-                'h3',
-                null,
-                'Array of type:'
-            ),
-            React.createElement(
-                'div',
-                { style: {
-                        borderLeft: '2px solid #000',
-                        marginTop: '10px',
-                        paddingLeft: '40px'
-                    } },
-                renderProp(prop.arrayOf)
-            )
-        );
-    }
-
+var Header = function Header(_ref) {
+    var name = _ref.name,
+        description = _ref.description;
     return React.createElement(
         'div',
-        null,
-        React.createElement(
-            'p',
-            null,
-            React.createElement(
-                'i',
-                null,
-                prop.type,
-                ' (',
-                prop.required ? 'required' : 'optional',
-                ')'
-            )
-        ),
-        React.createElement(
-            'p',
-            null,
-            prop.description
-        ),
-        prop.default && React.createElement(
-            'p',
-            null,
-            'Default value: ',
-            display(prop.default)
-        )
-    );
-};
-
-var getPropsDocArray = function getPropsDocArray(documentation) {
-    return Object.keys(documentation.props).map(function (name) {
-        return {
-            name: name,
-            docs: documentation.props[name].type().getDocs(documentation.props[name])
-        };
-    });
-};
-
-var defaultRenderer = function defaultRenderer(name, description, propDocs) {
-    return React.createElement(
-        'div',
-        { style: {
-                padding: '40px',
-                textAlign: 'left'
-            } },
+        { className: 'prop-docs--header' },
         React.createElement(
             'h1',
             null,
@@ -628,33 +527,92 @@ var defaultRenderer = function defaultRenderer(name, description, propDocs) {
             'h2',
             null,
             description
+        )
+    );
+};
+
+var Prop = function Prop(_ref) {
+    var prop = _ref.prop;
+    var name = prop.name,
+        _prop$docs = prop.docs,
+        type = _prop$docs.type,
+        required = _prop$docs.required,
+        description = _prop$docs.description,
+        shape = _prop$docs.shape,
+        arrayOf = _prop$docs.arrayOf,
+        def = _prop$docs.default;
+
+    return React.createElement(
+        'div',
+        { key: name, className: 'prop-docs--prop' },
+        React.createElement(
+            'p',
+            null,
+            React.createElement(
+                'b',
+                null,
+                name
+            ),
+            ' - ',
+            type,
+            ' (',
+            required ? 'required' : 'optional',
+            ')'
         ),
-        propDocs.map(function (prop) {
-            return React.createElement(
-                'div',
-                { key: prop.name },
-                React.createElement(
-                    'h2',
-                    null,
-                    prop.name
-                ),
-                React.createElement(
-                    'div',
-                    null,
-                    renderProp(prop.docs, prop.name)
-                )
-            );
+        React.createElement(
+            'p',
+            { className: 'prop-docs--prop--description' },
+            description
+        ),
+        def && React.createElement(
+            'p',
+            { className: 'prop-docs--prop--default' },
+            'Default value: ',
+            display(def)
+        ),
+        shape && React.createElement(
+            'div',
+            { className: 'prop-docs--prop--shape' },
+            shapeToDocs(shape).map(function (prop) {
+                return React.createElement(Prop, { key: prop.name, prop: prop });
+            })
+        ),
+        arrayOf && React.createElement(
+            'div',
+            { className: 'prop-docs--prop--arrayOf' },
+            React.createElement(Prop, { prop: arrayOfToDocs(arrayOf) })
+        )
+    );
+};
+
+var Main = function Main(_ref) {
+    var props = _ref.props;
+    return React.createElement(
+        'div',
+        { className: 'prop-docs--body' },
+        props.map(function (prop) {
+            return React.createElement(Prop, { key: prop.name, prop: prop });
         })
     );
 };
 
 var DocDisplay$1 = function DocDisplay(_ref) {
-    var documentation = _ref.documentation,
-        customRenderer = _ref.customRenderer;
+    var _ref$documentation = _ref.documentation,
+        name = _ref$documentation.name,
+        props = _ref$documentation.props,
+        description = _ref$documentation.description,
+        headerComponent = _ref.headerComponent,
+        propsComponent = _ref.propsComponent;
 
-    var propDocs = getPropsDocArray(documentation);
-    var render = customRenderer || defaultRenderer;
-    return render(documentation.name, documentation.description, propDocs);
+    var propsArray = propsToDocs(props);
+    var Title = headerComponent || Header;
+    var Body = propsComponent || Main;
+    return React.createElement(
+        'div',
+        { className: 'prop-docs' },
+        React.createElement(Title, { name: name, description: description }),
+        React.createElement(Body, { props: propsArray })
+    );
 };
 
 var docsToProps = function docsToProps(docs) {

@@ -1,12 +1,12 @@
 {
   "name": "react-doc-props",
-  "version": "0.1.7",
+  "version": "0.1.11",
   "description": "Auto-documenting react proptypes",
   "main": "dist/main.js",
   "jsnext:main": "dist/main.mjs",
   "browser": "dist/main.browser.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "test:watch": "npm run test -- --watch"
   },
   "repository": {
