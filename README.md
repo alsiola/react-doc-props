@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/alsiola/react-doc-props.svg?branch=master)](https://travis-ci.org/alsiola/react-doc-props)
-[![Coverage Status](https://coveralls.io/repos/github/alsiola/react-doc-props/badge.svg?branch=develop)](https://coveralls.io/github/alsiola/react-doc-props?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/github/alsiola/react-doc-props/badge.svg?branch=master)](https://coveralls.io/github/alsiola/react-doc-props?branch=master)
 # react-doc-props
 
 react-doc-props is a package that allows you to write comprehensive in-file documentation of React components.  This documentation will then generate the correct propTypes and defaultProps for your component.  Additionally, a `DocDisplay` component is provided that will display the documentation in a human-friendly format, which can be integrated with, for example, React-Storybook.
