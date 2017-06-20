@@ -4,3 +4,4 @@ demo/build
 coverage
 dist
 *.tgz
+npm-debug.log

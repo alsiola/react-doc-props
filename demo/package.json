@@ -1,11 +1,11 @@
 {
   "name": "demo",
-  "version": "0.1.15",
+  "version": "0.1.17",
   "private": true,
   "dependencies": {
     "react": "^15.5.4",
     "react-codemirror": "^0.3.0",
-    "react-doc-props": "^0.1.15",
+    "react-doc-props": "^0.1.17",
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
