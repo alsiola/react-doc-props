@@ -3,8 +3,9 @@ import CodeMirror from 'react-codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/lib/codemirror.css';
 
+import { generateDocs } from 'react-doc-props';
+
 import { documentation } from './PropDemo';
-import { DocDisplay } from 'react-doc-props';
 
 export const documentationString = `
 import { string, number, shape, arrayOf, setComponentProps } from 'react-doc-props';
@@ -75,14 +76,17 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <h1>react-doc-props Demo</h1>
+                <h1>react-doc-props</h1>
                 <p>This documentation object...</p>
-                <CodeMirror value={(documentationString)} options={{
+                <CodeMirror value={documentationString} options={{
                     mode: 'javascript',
                     readOnly: 'true'
                 }} />
-                <p>...will generate this documentation.</p>
-                <DocDisplay documentation={documentation} />
+                <p>...will generate this JSON...</p>
+                <CodeMirror value={JSON.stringify(generateDocs(documentation), null, 4)} options={{
+                    mode: 'javascript',
+                    readOnly: 'true'
+                }} />
             </div>
         );
     }

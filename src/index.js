@@ -6,13 +6,17 @@ import { makeOneOfProptype } from './oneOf';
 import { makeOneOfTypeProptype } from './oneOfType';
 import { makeArrayOfProptype } from './arrayOf';
 import { makeObjectOfProptype } from './objectOf';
-
-import D from './components/DocDisplay';
-export const DocDisplay = D;
+import { propsToDocs } from './utils';
 
 export { docsToProps } from './docsToProps';
 export { docsToDefaults } from './docsToDefaults';
 export { setComponentProps } from './setComponentProps';
+
+export const generateDocs = ({ name, description, props }) => ({
+    name,
+    description,
+    props: propsToDocs(props)
+});
 
 export function string() {
 	return makeSimplePropType('String', PropTypes.string);

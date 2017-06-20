@@ -3,11 +3,15 @@ body {
     padding: 20px;
     font-family: Raleway, sans-serif;
     font-size: 1.2em;
-    background: #8DABC4;
+    background: linear-gradient(20deg, rgb(219, 112, 147), #daa357);
 }
 
 p {
     line-height: 8px;
+}
+
+h1 {
+    text-align: center;
 }
 
 .prop-docs--prop {

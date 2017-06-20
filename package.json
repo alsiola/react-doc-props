@@ -1,6 +1,6 @@
 {
   "name": "react-doc-props",
-  "version": "0.1.11",
+  "version": "0.1.14",
   "description": "Auto-documenting react proptypes",
   "main": "dist/main.js",
   "jsnext:main": "dist/main.mjs",
@@ -26,10 +26,7 @@
   },
   "homepage": "https://gitlab.com/alsiola/react-doc-props#README",
   "dependencies": {
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-react": "^6.24.1",
-    "prop-types": "^15.5.8",
-    "react": "^15.5.4"
+    "prop-types": "^15.5.8"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
