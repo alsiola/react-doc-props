@@ -1,6 +1,6 @@
 {
   "name": "react-doc-props",
-  "version": "0.1.14",
+  "version": "0.1.16",
   "description": "Auto-documenting react proptypes",
   "main": "dist/main.js",
   "jsnext:main": "dist/main.mjs",
@@ -8,7 +8,8 @@
   "scripts": {
     "test": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test:local": "jest",
-    "test:watch": "npm run test:local -- --watch"
+    "test:watch": "npm run test:local -- --watch",
+    "build": "node tools/build"
   },
   "repository": {
     "type": "git",
@@ -22,9 +23,9 @@
   "author": "Alex Young",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/alsiola/react-doc-props/issues"
+    "url": "https://github.com/alsiola/react-doc-props/issues"
   },
-  "homepage": "https://gitlab.com/alsiola/react-doc-props#README",
+  "homepage": "https://github.com/alsiola/react-doc-props#README",
   "dependencies": {
     "prop-types": "^15.5.8"
   },
