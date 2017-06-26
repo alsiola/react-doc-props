@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/alsiola/react-doc-props/badge.svg?branch=master)](https://coveralls.io/github/alsiola/react-doc-props?branch=master)
 # react-doc-props
 
-react-doc-props is a package that allows you to write comprehensive in-file documentation of React components.  This documentation will then generate the correct propTypes and defaultProps for your component.  Additionally, a `DocDisplay` component is provided that will display the documentation in a human-friendly format, which can be integrated with, for example, React-Storybook.
+react-doc-props is a package that allows you to write comprehensive in-file documentation of React components.  This documentation will then generate the correct propTypes and defaultProps for your component.
 
 ## Installation
 Install with your package manager of choice:
@@ -29,28 +29,6 @@ import { setComponentProps } from 'react-doc-props';
 
 setComponentProps(documentation, Component);
 ````
-
-Having this documentation object in the component source file is helpful - it can be defined at the top of the file for quick reference, but the documentation can also be displayed in a pretty(ish) format using the included `DocDisplay` component, for example, within a react-storybook story, to create a page that shows examples of your component, as well as documenting its props.
-
-There is a demo of the DocDisplay component [here](https://alsiola.github.io/react-doc-props/), the source is in the `/demo` folder of this repository.
-
-If you wish to display the prop information in a different way, then you can use a custom renderer in `DocDisplay` - see the custom renderer section.
-
-````
-import React from 'react';
-import { DocDisplay } from 'react-doc-props';
-import Component, { documentation } from 'path/to/component';
-
-const ComponentStory = () => (
-    <div>
-        <DocDisplay documentation={documentation} />
-        // Some examples of your component
-    </div>
-);
-
-export default ComponentStory;
-````
-
 
 ### Simple Prop Types
 
