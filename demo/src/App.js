@@ -7,7 +7,7 @@ import { generateDocs } from 'react-doc-props';
 
 import { documentation } from './PropDemo';
 
-export const documentationString = `
+const documentationString = `
 import { string, number, shape, arrayOf, setComponentProps } from 'react-doc-props';
 
 export const documentation = {
@@ -72,6 +72,34 @@ export const documentation = {
 setComponentProps(documentation, PropDemo);
 `;
 
+const propTypesString = `
+import PropTypes from 'prop-types';
+
+PropDemo.propTypes = {
+    username: PropTypes.string,
+    age: PropTypes.number,
+    post: PropTypes.shape({
+        content: PropTypes.string.isRequired,
+        likes: PropTypes.number.isRequired,
+        category: PropTypes.shape({
+            name: PropTypes.string,
+            number: PropTypes.number
+        })
+    }).isRequired,
+    friends: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            name: PropTypes.string
+        })
+    )
+};
+
+PropDemo.defaultProps = {
+    username: 'Name not set',
+    friends: []
+};
+`
+
 class App extends Component {
     render() {
         return (
@@ -84,6 +112,11 @@ class App extends Component {
                 }} />
                 <p>...will generate this JSON...</p>
                 <CodeMirror value={JSON.stringify(generateDocs(documentation), null, 4)} options={{
+                    mode: 'javascript',
+                    readOnly: 'true'
+                }} />
+                <p>...and is equivalent to the following...</p>
+                <CodeMirror value={propTypesString} options={{
                     mode: 'javascript',
                     readOnly: 'true'
                 }} />

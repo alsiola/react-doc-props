@@ -3,7 +3,7 @@ body {
     padding: 20px;
     font-family: Raleway, sans-serif;
     font-size: 1.2em;
-    background: linear-gradient(20deg, rgb(219, 112, 147), #daa357);
+    background: linear-gradient(20deg, #FFC0AC, #5789CC);
 }
 
 p {
