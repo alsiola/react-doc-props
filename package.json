@@ -1,6 +1,6 @@
 {
   "name": "react-doc-props",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Auto-documenting react proptypes",
   "main": "dist/main.js",
   "jsnext:main": "dist/main.mjs",
